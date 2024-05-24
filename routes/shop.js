@@ -9,4 +9,11 @@ router.get('/',(req, res, next) => {
 
 })
 
+router.get('/home',(req, res, next) => {
+
+    res.send(`<h2>Welcome to the shop Home Page</h2>`)
+
+
+})
+
 module.exports= router
