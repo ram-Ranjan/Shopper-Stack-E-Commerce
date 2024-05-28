@@ -2,6 +2,7 @@ const express = require('express')
 
 const bodyParser = require('body-parser')
 const app = express();
+const path = require('path');
 
 
 const adminRoutes = require('./routes/admin')
@@ -16,7 +17,7 @@ app.use(shopRoutes);
 
 
 app.use((req,res,next) => {
-    res.status(404).send(`<h1>Page doesn't exist</h1>`)
+    res.status(404).sendFile('./views/404.html',{root:__dirname})
 })
 
 app.listen(3000,'localhost',() => {
