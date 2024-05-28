@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended:false }));
 
 
 app.use('/admin',adminRoutes);
-app.use('/shop',shopRoutes);
+app.use(shopRoutes);
 
 
 
@@ -19,9 +19,7 @@ app.use((req,res,next) => {
     res.status(404).send(`<h1>Page doesn't exist</h1>`)
 })
 
-app.listen(3000)
-// const server = http.createServer(app);
-
-
-// server.listen(4000,'localhost', () => console.log("Handling Requests"))
+app.listen(3000,'localhost',() => {
+    console.log('listening to port 3000')
+})
 
