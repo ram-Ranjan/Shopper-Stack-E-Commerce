@@ -1,29 +1,22 @@
-
-const express = require('express');
-const router = express.Router();
 const path = require('path');
 
+const express = require('express');
+
 const rootDir = require('../util/path');
+const adminData = require('./admin');
 
+const router = express.Router();
 
+router.get('/', (req, res, next) => {
+  const products = adminData.products;
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true
+  });
+});
 
-router.get('/',(req, res, next) => {
-//this is not working cause . means it is serching in pc's root
-   // res.sendFile('./views/shop.html')
-
-   res.sendFile(path.join(rootDir,'views','shop.html'))
-   //this will automatically build a path which works with all the linux as well as windows.
-   
-})
-
-
-router.get('/contactus',(req,res) => {
-    res.sendFile(path.join(rootDir,'views','contact.html'))
-})
-
-router.post('/status',(req,res) => {
-    res.sendFile(path.join(rootDir,'views','status.html'))
-})
-
-
-module.exports= router
+module.exports = router;
