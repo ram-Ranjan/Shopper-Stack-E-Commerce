@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "body-parser": "^1.20.2",
-    "express": "^4.19.2"
+    "ejs": "^3.1.10",
+    "express": "^4.16.3",
+    "express-handlebars": "^7.1.2",
+    "pug": "^3.0.3"
   },
   "name": "nodetoexpress",
   "version": "1.0.0",
@@ -10,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./app.js"
   },
-  "author": "",
+  "author": "ram-Ranjan",
   "license": "ISC",
   "description": "",
   "devDependencies": {
