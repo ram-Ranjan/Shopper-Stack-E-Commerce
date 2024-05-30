@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const app = express();
 const path = require('path');
 
+const errorController = require('./controllers/error')
 
 const adminRoutes = require('./routes/admin')
 const shopRoutes = require('./routes/shop')
@@ -17,9 +18,7 @@ app.use(shopRoutes);
 
 app.use(express.static(path.join(__dirname,'public')));
 
-app.use((req,res,next) => {
-    res.status(404).sendFile('./views/404.html',{root:__dirname})
-})
+app.use(errorController.get404())
 
 app.listen(3000,'localhost',() => {
     console.log('listening to port 3000')
