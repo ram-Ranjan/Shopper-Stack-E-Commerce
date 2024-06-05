@@ -53,6 +53,8 @@ exports.postEditProduct = (req,res,next) => {
   
 }
 
+
+
 exports.getProducts = (req, res, next) => {
   Product.fetchAll(products => {
     res.render('admin/products', {
@@ -62,3 +64,29 @@ exports.getProducts = (req, res, next) => {
     });
   });
 };
+
+exports.postDeleteProduct = (req,res,next) => {
+
+  const prodId = req.body.productId;
+  Product.deleteById(prodId)
+
+
+  // Product.findById(prodId,(product) => {
+  //   const productToDelete = product;
+
+  //   Product.fetchAll(products => {
+
+  //     //const newObj = obj.filter(item => JSON.stringify(item) !== JSON.stringify(rep));
+  //     const updatedProducts = products.filter(item => JSON.stringify(item) !== JSON.stringify(productToDelete));
+      
+  //     const finalProducts = JSON.parse(updatedProducts)
+  //     //updatedProducts.forEach(prod => prod.save()) });
+  //     console.log(updatedProducts)
+
+      res.redirect('/admin/products')
+
+
+
+
+  }
+
