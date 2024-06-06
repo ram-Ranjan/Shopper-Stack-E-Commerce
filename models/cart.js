@@ -60,14 +60,14 @@ module.exports = class Cart {
   }
 
 
-  static getProducts(callback){
+  static getCart(callback){
 
     fs.readFile(p,(err,fileContent) => {
       const cart = JSON.parse(fileContent)
 
-      if(cart){
+      if(err){
         callback(null);
-      }
+      }else
       callback(cart);
     })
 
