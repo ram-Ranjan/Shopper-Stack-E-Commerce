@@ -15,11 +15,13 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
   //const product = new Product(null,title, imageUrl, description, price);
  //create build a js object and immediately saves it.
-  Product.create({
+  req.user
+  .createProduct({
     title: title,
     price: price,
     imageUrl: imageUrl,
-    description: description
+    description: description,
+    // userId:req.user.id - Instead of this 
   })
     .then(result => {
       // console.log(result); 
@@ -38,8 +40,12 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect('/')
   }
   const prodId =req.params.productId;
-  Product.findByPk(prodId)
-  .then(product => {
+
+  req.user
+  .getProducts({where: {id:prodId}})//we are getting multiple products
+  // Product.findByPk(prodId)
+  .then(products => {
+    const product =products[0];
     if(product){
   res.render('admin/edit-product', {
     pageTitle: 'Edit Product',
@@ -85,7 +91,9 @@ exports.postEditProduct = (req,res,next) => {
 
 
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
+  // Product.findAll()
+  req.user
+  .getProducts()
   .then((products) => {
     res.render('admin/products', {
       prods: products,
