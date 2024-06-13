@@ -9,6 +9,8 @@ const sequelize = require('./util/database');
 
 const Product= require('./models/product');
 const User = require('./models/user');
+const Cart = require('./models/cart')
+const CartItem = require('./models/cart-item')
 
 const app = express();
 
@@ -48,9 +50,18 @@ app.use(errorController.get404);
 Product.belongsTo(User,{ constraints:true ,onDelete: 'CASCADE'});
 User.hasMany(Product);
 
+User.hasOne(Cart);
+Cart.belongsTo(User);//One direction
+
+Cart.belongsToMany(Product , { through:CartItem });
+Product.belongsToMany(Cart,{ through:CartItem });
+
+
+
 
 sequelize
-  .sync()//to recreate products table with user integration
+  // .sync({ force: true })//to recreate products table with user integration
+  .sync()
   .then(result => {
     return User.findByPk(1);
     // if there is a single user, return it.
@@ -68,10 +79,14 @@ sequelize
   // })
   .then(user => {
     // console.log(user)
-    app.listen(3000);
-
+    user.createCart();
 
   })
+  .then(cart => {
+    app.listen(3000);
+
+  }
+  )
   .catch(err => {
     console.log(err);
   });

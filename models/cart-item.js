@@ -1,17 +1,17 @@
 const sequelize = require("../util/database");
 const Datatypes = require('sequelize');
 
-const Cart = sequelize.define('cart',{
+const CartItem = sequelize.define('cartItem',{
   id:{
     type:Datatypes.INTEGER,
     autoIncrement:true,
     allowNull:false,
     primaryKey:true
 
-  }
+  },
+  quantity:Datatypes.INTEGER
 
 })
 
-module.exports= Cart;
-//a cart belongs to single user but may hold multiple products
+module.exports= CartItem;
 
